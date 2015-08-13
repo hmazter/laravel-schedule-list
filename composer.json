@@ -1,0 +1,22 @@
+{
+  "name": "hmazter/laravel-schedule-list",
+  "description": "Laravel package to add command to list all scheduled artisan commands",
+  "keywords": ["laravel", "artisan", "console"],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Kristoffer Högberg",
+      "email": "krihog@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=5.5.9",
+    "illuminate/support": "5.0.x|5.1.x",
+    "illuminate/console": "5.0.x|5.1.x"
+  },
+  "autoload": {
+    "psr-4": {
+      "Hmazter\\LaravelScheduleList\\": "src"
+    }
+  }
+}
