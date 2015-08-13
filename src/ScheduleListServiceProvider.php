@@ -9,7 +9,6 @@
 namespace Hmazter\LaravelScheduleList;
 
 use Illuminate\Support\ServiceProvider;
-use Hmazter\LaravelScheduleList\Console\ListScheduler;
 
 class ScheduleListServiceProvider extends ServiceProvider
 {
