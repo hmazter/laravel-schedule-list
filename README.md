@@ -1,6 +1,8 @@
 Laravel 5 Schedule List
 =====================
 
+[![Build Status](https://travis-ci.org/hmazter/laravel-schedule-list.svg?branch=master)](https://travis-ci.org/hmazter/laravel-schedule-list)
+
 Laravel 5 package to add a artisan command to list all scheduled artisan commands. 
 With schedule time, command and description.
 

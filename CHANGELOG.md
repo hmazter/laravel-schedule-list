@@ -2,7 +2,7 @@
 All notable changes to this project will be documented in this file.
 This project tries to adhere to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased]
+## [0.1.1] - 2015-09-16
 ### Added
 - Add test for package
 - Add travis CI Integration
