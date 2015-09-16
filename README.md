@@ -1,7 +1,7 @@
-Laravel Schedule List
+Laravel 5 Schedule List
 =====================
 
-Laravel package to add a artisan command to list all scheduled artisan commands. 
+Laravel 5 package to add a artisan command to list all scheduled artisan commands. 
 With schedule time, command and description.
 
 
@@ -32,7 +32,7 @@ Outputs:
      +-------------+---------------------------+-----------------------------------------------------------------+
      | expression  | command                   | description                                                     |
      +-------------+---------------------------+-----------------------------------------------------------------+
-     | 0 6 * * 1 * | email:export              | Export user to MailChimp                                        |
+     | 0 6 * * 1 * | email:export              | Export users to MailChimp                                       |
      +-------------+---------------------------+-----------------------------------------------------------------+
 
 ### Crontab style output
@@ -52,7 +52,7 @@ Outputs:
     +-------------+------------------------------------------------------------------------------------+---------------------------------------+
     | expression  | command                                                                            | description                           |
     +-------------+------------------------------------------------------------------------------------+---------------------------------------+
-    | 0 6 * * 1 * | /usr/bin/php5 "artisan" email:export > /home/user/dev/export-email.log 2>&1 &      | Export new guardians to MailChimp     |
+    | 0 6 * * 1 * | /usr/bin/php5 "artisan" email:export > /home/user/dev/export-email.log 2>&1 &      | Export new users to MailChimp         |
     +-------------+------------------------------------------------------------------------------------+---------------------------------------+
 
 Using `-vv` together with `--cron` does not change to output from normal `--cron` output.

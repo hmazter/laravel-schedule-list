@@ -14,9 +14,17 @@
     "illuminate/support": "5.0.x|5.1.x",
     "illuminate/console": "5.0.x|5.1.x"
   },
+  "require-dev": {
+    "phpunit/phpunit": "^4.8"
+  },
   "autoload": {
     "psr-4": {
       "Hmazter\\LaravelScheduleList\\": "src"
     }
+  },
+  "autoload-dev": {
+    "classmap": [
+      "tests/"
+    ]
   }
 }
