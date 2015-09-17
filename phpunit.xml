@@ -16,4 +16,14 @@
             <directory>./tests</directory>
         </testsuite>
     </testsuites>
+
+    <!-- Add a filter to make sure we don't count vendors and Tests in the coverage report -->
+    <filter>
+        <whitelist>
+            <exclude>
+                <directory>./vendor</directory>
+                <directory>./tests</directory>
+            </exclude>
+        </whitelist>
+    </filter>
 </phpunit>
