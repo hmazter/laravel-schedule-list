@@ -2,6 +2,12 @@ Laravel 5 Schedule List
 =====================
 
 [![Build Status](https://travis-ci.org/hmazter/laravel-schedule-list.svg?branch=master)](https://travis-ci.org/hmazter/laravel-schedule-list)
+[![Coverage Status](https://coveralls.io/repos/hmazter/laravel-schedule-list/badge.svg?branch=master&service=github)](https://coveralls.io/github/hmazter/laravel-schedule-list?branch=master)
+
+[![Latest Stable Version](https://poser.pugx.org/hmazter/laravel-schedule-list/v/stable)](https://packagist.org/packages/hmazter/laravel-schedule-list)
+[![Latest Unstable Version](https://poser.pugx.org/hmazter/laravel-schedule-list/v/unstable)](https://packagist.org/packages/hmazter/laravel-schedule-list)
+[![Total Downloads](https://poser.pugx.org/hmazter/laravel-schedule-list/downloads)](https://packagist.org/packages/hmazter/laravel-schedule-list)
+[![License](https://poser.pugx.org/hmazter/laravel-schedule-list/license)](https://packagist.org/packages/hmazter/laravel-schedule-list)
 
 Laravel 5 package to add a artisan command to list all scheduled artisan commands. 
 With schedule time, command and description.
