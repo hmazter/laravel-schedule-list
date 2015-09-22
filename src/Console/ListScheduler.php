@@ -25,6 +25,11 @@ class ListScheduler extends Command
     protected $description = 'List all scheduled commands in the task scheduler';
 
     /**
+     * @var Schedule
+     */
+    protected $schedule;
+
+    /**
      * Create a new command instance.
      *
      * @param  \Illuminate\Console\Scheduling\Schedule $schedule
@@ -101,7 +106,6 @@ class ListScheduler extends Command
             if ($this->output->getVerbosity() == OutputInterface::VERBOSITY_NORMAL) {
                 $command = substr($command, 0, strpos($command, '>'));
                 $command = trim(str_replace([PHP_BINARY, '"artisan"'], '', $command));
-
             }
 
             $rows[] = [
