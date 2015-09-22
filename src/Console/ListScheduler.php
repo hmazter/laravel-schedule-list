@@ -37,6 +37,18 @@ class ListScheduler extends Command
     }
 
     /**
+     * Get the console command options.
+     *
+     * @return array
+     */
+    protected function getOptions()
+    {
+        return [
+            ['cron', null, InputOption::VALUE_NONE, 'Show output cron style', null],
+        ];
+    }
+
+    /**
      * Execute the console command.
      *
      * @return mixed
@@ -51,48 +63,55 @@ class ListScheduler extends Command
         }
 
         if ($this->option('cron')) {
-            /** @var Event $event */
-            foreach ($events as $event) {
-                $this->line($event->getExpression() . ' ' . $event->buildCommand());
-            }
-        } else {
-            $rows = [];
-            /** @var Event $event */
-            foreach ($events as $event) {
-                $command = $event->buildCommand();
-                $desc = $event->getSummaryForDisplay();
+            $this->outputCronStyle($events);
+            return;
+        }
 
-                // if php binary is present in string, it is a the actual command and not a description
-                if (strpos($desc, PHP_BINARY) !== false) {
-                    $desc = '';
-                }
+        $this->outputTableStyle($events);
+    }
 
-                if ($this->output->getVerbosity() == OutputInterface::VERBOSITY_NORMAL) {
-                    $command = substr($command, 0, strpos($command, '>'));
-                    $command = trim(str_replace([PHP_BINARY, '"artisan"'], '', $command));
-
-                }
-
-                $rows[] = [
-                    'expression'  => $event->getExpression(),
-                    'command'     => $command,
-                    'description' => $desc,
-                ];
-            }
-            $headers = array_keys($rows[0]);
-            $this->table($headers, $rows);
+    /**
+     * @param $events
+     */
+    protected function outputCronStyle($events)
+    {
+        /** @var Event $event */
+        foreach ($events as $event) {
+            $this->line($event->getExpression() . ' ' . $event->buildCommand());
         }
     }
 
     /**
-     * Get the console command options.
-     *
-     * @return array
+     * @param $events
      */
-    protected function getOptions()
+    protected function outputTableStyle($events)
     {
-        return [
-            ['cron', null, InputOption::VALUE_NONE, 'Show output cron style', null],
-        ];
+        $rows = [];
+        /** @var Event $event */
+        foreach ($events as $event) {
+            $command = $event->buildCommand();
+            $desc = $event->getSummaryForDisplay();
+
+            // if php binary is present in string, it is a the actual command and not a description
+            if (strpos($desc, PHP_BINARY) !== false) {
+                $desc = '';
+            }
+
+            // remove php binary and std output from the command string
+            if ($this->output->getVerbosity() == OutputInterface::VERBOSITY_NORMAL) {
+                $command = substr($command, 0, strpos($command, '>'));
+                $command = trim(str_replace([PHP_BINARY, '"artisan"'], '', $command));
+
+            }
+
+            $rows[] = [
+                'expression' => $event->getExpression(),
+                'command' => $command,
+                'description' => $desc,
+            ];
+        }
+
+        $headers = array_keys($rows[0]);
+        $this->table($headers, $rows);
     }
 }
