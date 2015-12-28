@@ -1,7 +1,7 @@
 {
   "name": "hmazter/laravel-schedule-list",
   "description": "Laravel package to add command to list all scheduled artisan commands",
-  "keywords": ["laravel", "artisan", "console"],
+  "keywords": ["laravel5", "artisan", "console"],
   "license": "MIT",
   "authors": [
     {
