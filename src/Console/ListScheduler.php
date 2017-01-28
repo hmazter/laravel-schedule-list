@@ -62,7 +62,7 @@ class ListScheduler extends Command
     {
         $events = $this->schedule->events();
 
-        if (count($events) == 0) {
+        if (count($events) === 0) {
             $this->info('No tasks scheduled');
             return;
         }
@@ -103,7 +103,7 @@ class ListScheduler extends Command
             }
 
             // remove php binary and std output from the command string
-            if ($this->output->getVerbosity() == OutputInterface::VERBOSITY_NORMAL) {
+            if ($this->output->getVerbosity() === OutputInterface::VERBOSITY_NORMAL) {
                 $command = substr($command, 0, strpos($command, '>'));
                 $command = trim(str_replace([PHP_BINARY, 'artisan', '\'', '"'], '', $command));
             }
