@@ -6,6 +6,9 @@ This project tries to adhere to [Semantic Versioning](http://semver.org/).
 ### Updated
 - Updated tests
 - Use ::class style syntax
+- Testing against php 7.1
+
+### Other
 - Verify with Laravel 5.4
 
 ## [0.1.3] - 2015-12-30
