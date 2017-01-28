@@ -27,16 +27,8 @@ class ScheduleListServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->commands('Hmazter\LaravelScheduleList\Console\ListScheduler');
-    }
-
-    /**
-     * Get the services provided by the provider.
-     *
-     * @return array
-     */
-    public function provides()
-    {
-        return ['Hmazter\LaravelScheduleList\Console\ListScheduler'];
+        $this->commands([
+            Console\ListScheduler::class
+        ]);
     }
 }

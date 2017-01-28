@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in this file.
 This project tries to adhere to [Semantic Versioning](http://semver.org/).
 
+## [0.1.4] - 2017-01-28
+### Updated
+- Updated tests
+- Use ::class style syntax
+- Verify with Laravel 5.4
+
 ## [0.1.3] - 2015-12-30
 ### Updated
 - Update string replacement in command output in normal output mode to strip; php, artisan, single and double quote
