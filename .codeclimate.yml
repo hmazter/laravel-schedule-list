@@ -6,4 +6,4 @@ engines:
 
 ratings:
   paths:
-  - "**.php"
+  - "src/**.php"
