@@ -43,31 +43,39 @@ php artisan schedule:list
 ```
 
 Outputs:
-
-     +-------------+---------------------------+-----------------------------------------------------------------+
-     | expression  | command                   | description                                                     |
-     +-------------+---------------------------+-----------------------------------------------------------------+
-     | 0 6 * * 1 * | email:export              | Export users to MailChimp                                       |
-     +-------------+---------------------------+-----------------------------------------------------------------+
+```
+ +--------------+---------------------+--------------+-------------------------------+
+ | expression   | next run at         | command      | description                   |
+ +--------------+---------------------+--------------+-------------------------------+
+ | 0 14 * * 3 * | 2017-08-16 14:00:00 | email:export | Export users to email service |
+ +--------------+---------------------+--------------+-------------------------------+
+```
 
 ### Crontab style output
 
 Use `--cron` to show the output in the same style as it would go in a crontab file.
 
 Outputs:
-
-    0 6 * * 1 * /usr/bin/php5 "artisan" email:export > /home/user/dev/export-email.log 2>&1 &
+```
+0 14 * * 3 * '/usr/local/bin/php' 'artisan' email:export > '/dev/null' 2>&1`
+```
 
 ### Verbose output
 
 Use `-vv` to show the full command, including php binary path and output path.
 
 Outputs:
-
-    +-------------+------------------------------------------------------------------------------------+---------------------------------------+
-    | expression  | command                                                                            | description                           |
-    +-------------+------------------------------------------------------------------------------------+---------------------------------------+
-    | 0 6 * * 1 * | /usr/bin/php5 "artisan" email:export > /home/user/dev/export-email.log 2>&1 &      | Export new users to MailChimp         |
-    +-------------+------------------------------------------------------------------------------------+---------------------------------------+
+```
++--------------+---------------------+----------------------------------------------------------------+-------------------------------+
+| expression   | next run at         | command                                                        | description                   |
++--------------+---------------------+----------------------------------------------------------------+-------------------------------+
+| 0 14 * * 3 * | 2017-08-16 14:00:00 | '/usr/local/bin/php' 'artisan' email:export > '/dev/null' 2>&1 | Export users to email service |
++--------------+---------------------+----------------------------------------------------------------+-------------------------------+
+```
 
 Using `-vv` together with `--cron` does not change to output from normal `--cron` output.
+
+## Known limitations
+
+Laravel ships with some special scheduling functions ex, `between`, `unlessBetween`, `when` and  `skip`
+these are not handled right now in the schedule listing output.

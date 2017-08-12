@@ -17,11 +17,19 @@ class ListSchedulerIntegrationTest extends TestCase
     public function testListSchedulerCommand_withTasksAndTableStyle()
     {
         \Illuminate\Support\Facades\Artisan::call('schedule:list');
-        $consoleOutput = trim(\Illuminate\Support\Facades\Artisan::output());
+        $consoleOutput = explode("\n", trim(\Illuminate\Support\Facades\Artisan::output()));
+        $cron = \Cron\CronExpression::factory('0 10 * * *');
 
-        self::assertContains('test:command:name', $consoleOutput);
-        self::assertContains('Description of command', $consoleOutput);
-        self::assertContains('0 10 * * *', $consoleOutput);
+        self::assertContains('test:command:name', $consoleOutput[3]);
+        self::assertContains('Description of event', $consoleOutput[3]);
+        self::assertContains('0 10 * * *', $consoleOutput[3]);
+        self::assertContains($cron->getNextRunDate()->format('Y-m-d H:i:s'), $consoleOutput[3]);
+
+        // get description from the command class
+        self::assertContains('test:command:two', $consoleOutput[4]);
+        self::assertContains('Description of test command', $consoleOutput[4]);
+
+        self::assertContains('ls -lah', $consoleOutput[5]);
     }
 
     public function testListSchedulerCommand_withTasksAndCronStyle()
@@ -33,5 +41,9 @@ class ListSchedulerIntegrationTest extends TestCase
         self::assertContains('artisan', $consoleOutput);
         self::assertContains('0 10 * * *', $consoleOutput);
         self::assertContains((DIRECTORY_SEPARATOR === '\\') ? 'NUL' : '/dev/null', $consoleOutput);
+
+        self::assertContains('test:command:two', $consoleOutput);
+
+        self::assertContains('ls -lah', $consoleOutput);
     }
 }
