@@ -18,10 +18,12 @@ class ListSchedulerIntegrationTest extends TestCase
     {
         \Illuminate\Support\Facades\Artisan::call('schedule:list');
         $consoleOutput = trim(\Illuminate\Support\Facades\Artisan::output());
+        $cron = \Cron\CronExpression::factory('0 10 * * *');
 
         self::assertContains('test:command:name', $consoleOutput);
         self::assertContains('Description of command', $consoleOutput);
         self::assertContains('0 10 * * *', $consoleOutput);
+        self::assertContains($cron->getNextRunDate()->format('Y-m-d H:i:s'), $consoleOutput);
     }
 
     public function testListSchedulerCommand_withTasksAndCronStyle()

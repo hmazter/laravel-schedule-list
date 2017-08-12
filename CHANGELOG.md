@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project tries to adhere to [Semantic Versioning](http://semver.org/).
 
+## [0.1.6] - 
+### Updated
+- Output table include next run occasion for each command
+
 ## [0.1.5] - 2017-08-12
 ### Added
 - Support Laravel auto discover

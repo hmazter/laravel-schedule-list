@@ -2,6 +2,8 @@
 
 namespace Hmazter\LaravelScheduleList\Console;
 
+use Carbon\Carbon;
+use Cron\CronExpression;
 use Illuminate\Console\Command;
 use Illuminate\Console\Scheduling\Event;
 use Illuminate\Console\Scheduling\Schedule;
@@ -118,6 +120,7 @@ class ListScheduler extends Command
 
             $rows[] = [
                 'expression' => $event->getExpression(),
+                'next run at' => $this->getNextRunDate($event),
                 'command' => $command,
                 'description' => $desc,
             ];
@@ -125,5 +128,23 @@ class ListScheduler extends Command
 
         $headers = array_keys($rows[0]);
         $this->table($headers, $rows);
+    }
+
+    /**
+     * Get the next scheduled run date for this event
+     *
+     * @param Event $event
+     * @return string
+     */
+    private function getNextRunDate($event)
+    {
+        $cron = CronExpression::factory($event->getExpression());
+        $date = Carbon::now();
+
+        if ($event->timezone) {
+            $date->setTimezone($event->timezone);
+        }
+
+        return $cron->getNextRunDate()->format('Y-m-d H:i:s');
     }
 }
