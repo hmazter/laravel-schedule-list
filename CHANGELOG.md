@@ -2,6 +2,13 @@
 All notable changes to this project will be documented in this file.
 This project tries to adhere to [Semantic Versioning](http://semver.org/).
 
+## [0.1.5] - 2017-08-12
+### Added
+- Support Laravel auto discover
+
+### Other
+- Verify with Laravel 5.5 and PHPUnit 6
+
 ## [0.1.4] - 2017-01-28
 ### Updated
 - Updated tests

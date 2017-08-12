@@ -21,6 +21,12 @@ Require this package with composer using the following command:
 ```bash
 composer require hmazter/laravel-schedule-list
 ```
+### Laravel 5.5 and above
+
+Install is done
+
+
+### Laravel < 5.5
 
 After updating composer, add the service provider to the `providers` array in `config/app.php`
 

@@ -58,7 +58,7 @@ class ListScheduler extends Command
      *
      * @return mixed
      */
-    public function fire()
+    public function handle()
     {
         $events = $this->schedule->events();
 
@@ -73,6 +73,14 @@ class ListScheduler extends Command
         }
 
         $this->outputTableStyle($events);
+    }
+
+    /**
+     * Backwards compatibility for laravel <5.5
+     */
+    public function fire()
+    {
+        $this->handle();
     }
 
     /**
