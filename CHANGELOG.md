@@ -2,10 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project tries to adhere to [Semantic Versioning](http://semver.org/).
 
-## [0.1.6] - 
+## [0.2.0] - 2017-08-14
 ### Updated
 - Output table include next run occasion for each command
-- Description is now parsed from the command class, if available
+- Description is now parsed from the command class, schedule description overrides the command description
 
 ## [0.1.5] - 2017-08-12
 ### Added

@@ -11,7 +11,7 @@ Laravel 5 Schedule List
 [![License](https://poser.pugx.org/hmazter/laravel-schedule-list/license)](https://packagist.org/packages/hmazter/laravel-schedule-list)
 
 Laravel 5 package to add a artisan command to list all scheduled artisan commands. 
-With schedule time, command and description.
+With schedule time (cron expression), the command to execute and the command description.
 
 
 ## Install
@@ -77,5 +77,6 @@ Using `-vv` together with `--cron` does not change to output from normal `--cron
 
 ## Known limitations
 
-Laravel ships with some special scheduling functions ex, `between`, `unlessBetween`, `when` and  `skip`
+Laravel ships with some special scheduling functions ex `between`, `unlessBetween`, `when` and  `skip`
 these are not handled right now in the schedule listing output.
+They are evaluated at each execution of the schedule and does not define any expression that can be included in the table.
