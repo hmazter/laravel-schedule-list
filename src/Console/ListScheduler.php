@@ -2,13 +2,9 @@
 
 namespace Hmazter\LaravelScheduleList\Console;
 
-use Carbon\Carbon;
-use Cron\CronExpression;
+use Hmazter\LaravelScheduleList\ScheduleEvent;
+use Hmazter\LaravelScheduleList\ScheduleList;
 use Illuminate\Console\Command;
-use Illuminate\Console\Parser;
-use Illuminate\Console\Scheduling\Event;
-use Illuminate\Console\Scheduling\Schedule;
-use Symfony\Component\Console\Exception\CommandNotFoundException;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -29,18 +25,16 @@ class ListScheduler extends Command
     protected $description = 'List all scheduled commands in the task scheduler';
 
     /**
-     * @var Schedule
+     * @var ScheduleList
      */
-    protected $schedule;
+    protected $scheduleList;
 
     /**
-     * Create a new command instance.
-     *
-     * @param  \Illuminate\Console\Scheduling\Schedule $schedule
+     * @param ScheduleList $scheduleList
      */
-    public function __construct(Schedule $schedule)
+    public function __construct(ScheduleList $scheduleList)
     {
-        $this->schedule = $schedule;
+        $this->scheduleList = $scheduleList;
 
         parent::__construct();
     }
@@ -59,12 +53,10 @@ class ListScheduler extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return mixed
      */
     public function handle()
     {
-        $events = $this->schedule->events();
+        $events = $this->scheduleList->all();
 
         if (count($events) === 0) {
             $this->info('No tasks scheduled');
@@ -88,91 +80,32 @@ class ListScheduler extends Command
     }
 
     /**
-     * @param $events
+     * @param array|ScheduleEvent[] $events
      */
     protected function outputCronStyle($events)
     {
-        /** @var Event $event */
         foreach ($events as $event) {
-            $this->line($event->getExpression() . ' ' . $event->buildCommand());
+            $this->line($event->getExpression() . ' ' . $event->getFullCommand());
         }
     }
 
     /**
-     * @param $events
+     * @param array|ScheduleEvent[] $events
      */
     protected function outputTableStyle($events)
     {
+        $isVerbosityNormal = $this->output->getVerbosity() === OutputInterface::VERBOSITY_NORMAL;
         $rows = [];
-        /** @var Event $event */
         foreach ($events as $event) {
-            $fullCommand = $event->buildCommand();
-            $shortCommand = $this->getShortCommand($fullCommand);
-            $isVerbosityNormal = $this->output->getVerbosity() === OutputInterface::VERBOSITY_NORMAL;
-            list($commandName) = Parser::parse($shortCommand);
-            $description = $event->description;
-            if (empty($description)) {
-                $description = $this->getDescriptionFromCommand($commandName);
-            }
-
             $rows[] = [
                 'expression' => $event->getExpression(),
-                'next run at' => $this->getNextRunDate($event),
-                'command' => $isVerbosityNormal ? $shortCommand : $fullCommand,
-                'description' => $description,
+                'next run at' => $event->getNextRunDate(),
+                'command' => $isVerbosityNormal ? $event->getShortCommand() : $event->getFullCommand(),
+                'description' => $event->getDescription(),
             ];
         }
 
         $headers = array_keys($rows[0]);
         $this->table($headers, $rows);
-    }
-
-    /**
-     * Get the "short" command
-     * Remove php binary, "artisan" and std output from the command string
-     *
-     * @param string $command
-     * @return string
-     */
-    private function getShortCommand($command)
-    {
-        $command = substr($command, 0, strpos($command, '>'));
-        $command = trim(str_replace([PHP_BINARY, 'artisan', '\'', '"'], '', $command));
-        return $command;
-    }
-
-    /**
-     * Parse the description from the Command instead of the scheduled event
-     *
-     * @param string $commandName
-     * @return string
-     */
-    private function getDescriptionFromCommand($commandName)
-    {
-        try {
-            $className = get_class($this->getApplication()->find($commandName));
-            $reflection = new \ReflectionClass($className);
-            return (string)$reflection->getDefaultProperties()['description'];
-        } catch (CommandNotFoundException $e) {
-            return '';
-        }
-    }
-
-    /**
-     * Get the next scheduled run date for this event
-     *
-     * @param Event $event
-     * @return string
-     */
-    private function getNextRunDate($event)
-    {
-        $cron = CronExpression::factory($event->getExpression());
-        $date = Carbon::now();
-
-        if ($event->timezone) {
-            $date->setTimezone($event->timezone);
-        }
-
-        return $cron->getNextRunDate()->format('Y-m-d H:i:s');
     }
 }
