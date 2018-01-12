@@ -78,6 +78,14 @@ Outputs:
 
 Using `-vv` together with `--cron` does not change to output from normal `--cron` output.
 
+### Programmatic use
+
+For occasions when you need to access the list of scheduled events programmatically
+`\Hmazter\LaravelScheduleList\ScheduleList::all` exists that will return all the scheduled events as an array of `ScheduleEvent`.
+
+Inject the `ScheduleList` or resolve it from the Container and then call `all()` to get all scheduled events.
+Usage of it can be seen in `\Hmazter\LaravelScheduleList\Console\ListScheduler::handle`
+
 ## Known limitations
 
 Laravel ships with some special scheduling functions ex `between`, `unlessBetween`, `when` and  `skip`
