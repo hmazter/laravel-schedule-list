@@ -41,7 +41,7 @@ class ScheduleEvent
      * @param string $expression
      * @return ScheduleEvent
      */
-    public function setExpression(string $expression)
+    public function setExpression($expression)
     {
         $this->expression = $expression;
         return $this;
@@ -59,7 +59,7 @@ class ScheduleEvent
      * @param string $nextRunDate
      * @return ScheduleEvent
      */
-    public function setNextRunDate(string $nextRunDate)
+    public function setNextRunDate($nextRunDate)
     {
         $this->nextRunDate = $nextRunDate;
         return $this;
@@ -77,7 +77,7 @@ class ScheduleEvent
      * @param string $shortCommand
      * @return ScheduleEvent
      */
-    public function setShortCommand(string $shortCommand)
+    public function setShortCommand($shortCommand)
     {
         $this->shortCommand = $shortCommand;
         return $this;
@@ -95,7 +95,7 @@ class ScheduleEvent
      * @param string $fullCommand
      * @return ScheduleEvent
      */
-    public function setFullCommand(string $fullCommand)
+    public function setFullCommand($fullCommand)
     {
         $this->fullCommand = $fullCommand;
         return $this;
@@ -113,7 +113,7 @@ class ScheduleEvent
      * @param string $description
      * @return ScheduleEvent
      */
-    public function setDescription(string $description)
+    public function setDescription($description)
     {
         $this->description = $description;
         return $this;
