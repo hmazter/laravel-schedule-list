@@ -2,7 +2,7 @@
 
 use Illuminate\Contracts\Console\Kernel;
 
-class ListSchedulerIntegrationTest extends TestCase
+class ListSchedulerTest extends TestCase
 {
     /**
      * Resolve application Console Kernel implementation.
