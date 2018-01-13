@@ -84,7 +84,7 @@ For occasions when you need to access the list of scheduled events programmatica
 `\Hmazter\LaravelScheduleList\ScheduleList::all` exists that will return all the scheduled events as an array of `ScheduleEvent`.
 
 Inject the `ScheduleList` or resolve it from the Container and then call `all()` to get all scheduled events.
-Usage of it can be seen in `\Hmazter\LaravelScheduleList\Console\ListScheduler::handle`
+Usage of it can be seen in [ListScheduler::handle](src/Console/ListScheduler.php)
 
 ## Known limitations
 
