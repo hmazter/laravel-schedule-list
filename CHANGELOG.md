@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project tries to adhere to [Semantic Versioning](http://semver.org/).
 
+## [0.2.1] - 
+### Other
+- Support Laravel 5.6 and PHPUnit 7
+
 ## [0.2.0] - 2017-08-14
 ### Updated
 - Output table include next run occasion for each command
