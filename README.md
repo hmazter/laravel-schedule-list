@@ -21,6 +21,9 @@ Require this package with composer using the following command:
 ```bash
 composer require hmazter/laravel-schedule-list
 ```
+
+**Note!** For Laravel version below 5.6 use `0.2.0` tag.
+
 ### Laravel 5.5 and above
 
 Install is done
