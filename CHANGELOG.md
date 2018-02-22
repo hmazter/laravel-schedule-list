@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file.
 This project tries to adhere to [Semantic Versioning](http://semver.org/).
 
+## [1.0.0] - 
+### Breaking
+- Only support PHP 7.1.3 and above
+- Only support Laravel 5.6
+
 ## [0.2.1] - 2018-02-07
 ### Other
 - Support Laravel 5.6 and PHPUnit 7
