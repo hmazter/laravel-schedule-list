@@ -68,10 +68,10 @@ class ScheduleList
      * @param string $command
      * @return string
      */
-    private function getShortCommand($command)
+    public function getShortCommand($command)
     {
         $command = substr($command, 0, strpos($command, '>'));
-        $command = trim(str_replace([PHP_BINARY, 'artisan', '\'', '"'], '', $command));
+        $command = trim(str_replace(["'".PHP_BINARY."'", "'artisan'"], '', $command));
         return $command;
     }
 
