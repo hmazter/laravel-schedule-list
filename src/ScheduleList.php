@@ -90,9 +90,13 @@ class ScheduleList
             return '';
         }
 
-        $className = get_class($commands[$commandName]);
-        $reflection = new \ReflectionClass($className);
-        return (string)$reflection->getDefaultProperties()['description'];
+        try {
+            $className = get_class($commands[$commandName]);
+            $reflection = new \ReflectionClass($className);
+            return (string)$reflection->getDefaultProperties()['description'];
+        } catch (\ReflectionException $exception) {
+            return '';
+        }
     }
 
     /**
