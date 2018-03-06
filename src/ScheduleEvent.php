@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Hmazter\LaravelScheduleList;
 
@@ -32,7 +33,7 @@ class ScheduleEvent
     /**
      * @return string
      */
-    public function getExpression()
+    public function getExpression(): string
     {
         return $this->expression;
     }
@@ -41,7 +42,7 @@ class ScheduleEvent
      * @param string $expression
      * @return ScheduleEvent
      */
-    public function setExpression($expression)
+    public function setExpression(string $expression): self
     {
         $this->expression = $expression;
         return $this;
@@ -50,7 +51,7 @@ class ScheduleEvent
     /**
      * @return string
      */
-    public function getNextRunDate()
+    public function getNextRunDate(): string
     {
         return $this->nextRunDate;
     }
@@ -59,7 +60,7 @@ class ScheduleEvent
      * @param string $nextRunDate
      * @return ScheduleEvent
      */
-    public function setNextRunDate($nextRunDate)
+    public function setNextRunDate(string $nextRunDate): self
     {
         $this->nextRunDate = $nextRunDate;
         return $this;
@@ -68,7 +69,7 @@ class ScheduleEvent
     /**
      * @return string
      */
-    public function getShortCommand()
+    public function getShortCommand(): string
     {
         return $this->shortCommand;
     }
@@ -77,7 +78,7 @@ class ScheduleEvent
      * @param string $shortCommand
      * @return ScheduleEvent
      */
-    public function setShortCommand($shortCommand)
+    public function setShortCommand(string $shortCommand): self
     {
         $this->shortCommand = $shortCommand;
         return $this;
@@ -86,7 +87,7 @@ class ScheduleEvent
     /**
      * @return string
      */
-    public function getFullCommand()
+    public function getFullCommand(): string
     {
         return $this->fullCommand;
     }
@@ -95,7 +96,7 @@ class ScheduleEvent
      * @param string $fullCommand
      * @return ScheduleEvent
      */
-    public function setFullCommand($fullCommand)
+    public function setFullCommand(string $fullCommand): self
     {
         $this->fullCommand = $fullCommand;
         return $this;
@@ -104,7 +105,7 @@ class ScheduleEvent
     /**
      * @return string
      */
-    public function getDescription()
+    public function getDescription(): string
     {
         return $this->description;
     }
@@ -113,7 +114,7 @@ class ScheduleEvent
      * @param string $description
      * @return ScheduleEvent
      */
-    public function setDescription($description)
+    public function setDescription(string $description): self
     {
         $this->description = $description;
         return $this;

@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Hmazter\LaravelScheduleList;
 
@@ -15,6 +16,7 @@ class ScheduleList
      * @var Schedule
      */
     private $schedule;
+
     /**
      * @var ConsoleKernel
      */
@@ -33,7 +35,7 @@ class ScheduleList
     /**
      * @return array|ScheduleEvent[]
      */
-    public function all()
+    public function all(): array
     {
         $events = [];
 
@@ -68,7 +70,7 @@ class ScheduleList
      * @param string $command
      * @return string
      */
-    public function getShortCommand($command)
+    public function getShortCommand(string $command): string
     {
         $command = substr($command, 0, strpos($command, '>'));
         $command = trim(str_replace(["'".PHP_BINARY."'", "'artisan'"], '', $command));
@@ -81,7 +83,7 @@ class ScheduleList
      * @param string $commandName
      * @return string
      */
-    private function getDescriptionFromCommand($commandName)
+    private function getDescriptionFromCommand(string $commandName): string
     {
         $commands = $this->consoleKernel->all();
         if (!isset($commands[$commandName])) {
@@ -99,7 +101,7 @@ class ScheduleList
      * @param Event $event
      * @return string
      */
-    private function getNextRunDate($event)
+    private function getNextRunDate(Event $event): string
     {
         $cron = CronExpression::factory($event->getExpression());
         $date = Carbon::now();
