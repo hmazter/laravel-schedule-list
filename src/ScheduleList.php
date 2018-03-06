@@ -3,12 +3,12 @@ declare(strict_types=1);
 
 namespace Hmazter\LaravelScheduleList;
 
-use Carbon\Carbon;
 use Cron\CronExpression;
 use Illuminate\Console\Parser;
 use Illuminate\Console\Scheduling\Event;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Contracts\Console\Kernel as ConsoleKernel;
+use Illuminate\Support\Carbon;
 
 class ScheduleList
 {
@@ -99,17 +99,16 @@ class ScheduleList
      * Get the next scheduled run date for this event
      *
      * @param Event $event
-     * @return string
+     * @return Carbon
      */
-    private function getNextRunDate(Event $event): string
+    private function getNextRunDate(Event $event): Carbon
     {
         $cron = CronExpression::factory($event->getExpression());
-        $date = Carbon::now();
-
-        if ($event->timezone) {
-            $date->setTimezone($event->timezone);
+        $nextRun = Carbon::instance($cron->getNextRunDate());
+        if ($event->timezone){
+            $nextRun->setTimezone($event->timezone);
         }
 
-        return $cron->getNextRunDate()->format('Y-m-d H:i:s');
+        return $nextRun;
     }
 }

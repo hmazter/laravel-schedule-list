@@ -100,7 +100,7 @@ class ListScheduler extends Command
         foreach ($events as $event) {
             $rows[] = [
                 'expression' => $event->getExpression(),
-                'next run at' => $event->getNextRunDate(),
+                'next run at' => $event->getNextRunDate()->format('Y-m-d H:i:s'),
                 'command' => $isVerbosityNormal ? $event->getShortCommand() : $event->getFullCommand(),
                 'description' => $event->getDescription(),
             ];

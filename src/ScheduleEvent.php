@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace Hmazter\LaravelScheduleList;
 
+use Illuminate\Support\Carbon;
+
 class ScheduleEvent
 {
     /**
@@ -11,7 +13,7 @@ class ScheduleEvent
     private $expression;
 
     /**
-     * @var string
+     * @var Carbon
      */
     private $nextRunDate;
 
@@ -49,18 +51,18 @@ class ScheduleEvent
     }
 
     /**
-     * @return string
+     * @return Carbon
      */
-    public function getNextRunDate(): string
+    public function getNextRunDate(): Carbon
     {
         return $this->nextRunDate;
     }
 
     /**
-     * @param string $nextRunDate
+     * @param Carbon $nextRunDate
      * @return ScheduleEvent
      */
-    public function setNextRunDate(string $nextRunDate): self
+    public function setNextRunDate(Carbon $nextRunDate): self
     {
         $this->nextRunDate = $nextRunDate;
         return $this;
