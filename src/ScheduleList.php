@@ -107,12 +107,28 @@ class ScheduleList
      */
     private function getNextRunDate(Event $event): Carbon
     {
-        $cron = CronExpression::factory($event->getExpression());
+        $cron = CronExpression::factory($this->truncateCronExpression($event->getExpression()));
         $nextRun = Carbon::instance($cron->getNextRunDate());
         if ($event->timezone){
             $nextRun->setTimezone($event->timezone);
         }
 
         return $nextRun;
+    }
+
+    /**
+     * Truncate the cron-expression to allow for Laravel <=5.5 that uses 6 positions for the expression
+     *
+     * @param string $expression
+     * @return string
+     */
+    private function truncateCronExpression(string $expression): string
+    {
+        $expression = explode(' ', $expression);
+        if (count($expression) > 5) {
+            $expression = array_slice($expression, 0, 5);
+        }
+
+        return implode(' ', $expression);
     }
 }
