@@ -30,8 +30,6 @@ class ListSchedulerTest extends TestCase
         self::assertContains('Description of test command', $consoleOutput[4]);
 
         self::assertContains('ls -lah', $consoleOutput[5]);
-
-        self::assertContains('6 position cron', $consoleOutput[6]);
     }
 
     public function testListSchedulerCommand_withTasksAndCronStyle()

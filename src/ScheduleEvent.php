@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace Hmazter\LaravelScheduleList;
 
+use Illuminate\Console\Parser;
+use Cron\CronExpression;
 use Illuminate\Support\Carbon;
 
 class ScheduleEvent
@@ -13,14 +15,9 @@ class ScheduleEvent
     private $expression;
 
     /**
-     * @var Carbon
+     * @var \DateTimeZone|string|null
      */
-    private $nextRunDate;
-
-    /**
-     * @var string
-     */
-    private $shortCommand;
+    private $timezone;
 
     /**
      * @var string
@@ -33,6 +30,24 @@ class ScheduleEvent
     private $description;
 
     /**
+     * @param string $expression
+     * @param \DateTimeZone|null|string $timezone
+     * @param string $fullCommand
+     * @param string $description
+     */
+    public function __construct(
+        string $expression,
+        $timezone,
+        string $fullCommand,
+        string $description
+    ) {
+        $this->expression = $this->truncateCronExpression($expression);
+        $this->timezone = $timezone;
+        $this->fullCommand = $fullCommand;
+        $this->description = $description;
+    }
+
+    /**
      * @return string
      */
     public function getExpression(): string
@@ -41,49 +56,27 @@ class ScheduleEvent
     }
 
     /**
-     * @param string $expression
-     * @return ScheduleEvent
+     * @return \DateTimeZone|null|string
      */
-    public function setExpression(string $expression): self
+    public function getTimezone()
     {
-        $this->expression = $expression;
-        return $this;
+        return $this->timezone;
     }
 
     /**
+     * Get the next scheduled run date for this event
+     *
      * @return Carbon
      */
     public function getNextRunDate(): Carbon
     {
-        return $this->nextRunDate;
-    }
+        $cron = CronExpression::factory($this->getExpression());
+        $nextRun = Carbon::instance($cron->getNextRunDate());
+        if ($this->timezone) {
+            $nextRun->setTimezone($this->timezone);
+        }
 
-    /**
-     * @param Carbon $nextRunDate
-     * @return ScheduleEvent
-     */
-    public function setNextRunDate(Carbon $nextRunDate): self
-    {
-        $this->nextRunDate = $nextRunDate;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getShortCommand(): string
-    {
-        return $this->shortCommand;
-    }
-
-    /**
-     * @param string $shortCommand
-     * @return ScheduleEvent
-     */
-    public function setShortCommand(string $shortCommand): self
-    {
-        $this->shortCommand = $shortCommand;
-        return $this;
+        return $nextRun;
     }
 
     /**
@@ -95,13 +88,26 @@ class ScheduleEvent
     }
 
     /**
-     * @param string $fullCommand
-     * @return ScheduleEvent
+     * Get the command with options and arguments from the full cron command
+     * Remove php binary, "artisan" and output
+     *
+     * @return string
      */
-    public function setFullCommand(string $fullCommand): self
+    public function getShortCommand(): string
     {
-        $this->fullCommand = $fullCommand;
-        return $this;
+        $command = $this->getFullCommand();
+        $command = substr($command, 0, strpos($command, '>'));
+        $command = trim(str_replace(["'".PHP_BINARY."'", "'artisan'"], '', $command));
+        return $command;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCommandName(): string
+    {
+        list($commandName) = Parser::parse($this->getShortCommand());
+        return $commandName;
     }
 
     /**
@@ -120,5 +126,22 @@ class ScheduleEvent
     {
         $this->description = $description;
         return $this;
+    }
+
+    /**
+     * Truncate the cron-expression to allow for Laravel <=5.5 that uses 6 positions for the expression
+     *
+     * @param string $expression
+     * @return string
+     */
+    private function truncateCronExpression(string $expression): string
+    {
+        $expressionParts = preg_split('/\s/', $expression, -1, PREG_SPLIT_NO_EMPTY);
+        if (count($expressionParts) === 5) {
+            return $expression;
+        }
+
+        $expressionParts = array_slice($expressionParts, 0, 5);
+        return implode(' ', $expressionParts);
     }
 }

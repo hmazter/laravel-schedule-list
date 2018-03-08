@@ -11,6 +11,5 @@ class MockConsoleKernel extends \Orchestra\Testbench\Console\Kernel
         $schedule->command('test:command:name')->dailyAt('10:00')->description('Description of event');
         $schedule->command('test:command:two')->dailyAt('10:00')->timezone('UTC');
         $schedule->exec('ls -lah')->mondays()->at('3:00');
-        $schedule->exec('with 6 position cron')-> cron('* * * * * *');
     }
 }
