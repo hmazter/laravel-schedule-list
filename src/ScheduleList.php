@@ -124,11 +124,12 @@ class ScheduleList
      */
     private function truncateCronExpression(string $expression): string
     {
-        $expression = explode(' ', $expression);
-        if (count($expression) > 5) {
-            $expression = array_slice($expression, 0, 5);
+        $expressionParts = preg_split('/\s/', $expression, -1, PREG_SPLIT_NO_EMPTY);
+        if (count($expressionParts) === 5) {
+            return $expression;
         }
 
-        return implode(' ', $expression);
+        $expressionParts = array_slice($expressionParts, 0, 5);
+        return implode(' ', $expressionParts);
     }
 }
