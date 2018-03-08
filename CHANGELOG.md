@@ -5,7 +5,7 @@ This project tries to adhere to [Semantic Versioning](http://semver.org/).
 ## [1.0.0] - 
 ### Breaking
 - Only support PHP 7.1.3 and above
-- Only support Laravel 5.6
+- Only support Laravel 5.5 and above
 
 ### Added
 - Add `ScheduleList::all()` that returns all scheduled events as an array
