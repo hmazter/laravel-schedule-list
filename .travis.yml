@@ -4,14 +4,33 @@ php:
   - 7.1
   - 7.2
 
-before_script:
+cache:
+  directories:
+    - $HOME/.composer/cache
+
+matrix:
+  include:
+    - php: 7.1
+      env: ILLUMINATE_VERSION=5.5.* PHPUNIT_VERSION=6.*
+    - php: 7.1
+      env: ILLUMINATE_VERSION=5.6.* PHPUNIT_VERSION=7.*
+    - php: 7.2
+      env: ILLUMINATE_VERSION=5.5.* PHPUNIT_VERSION=6.*
+    - php: 7.2
+      env: ILLUMINATE_VERSION=5.6.* PHPUNIT_VERSION=7.*
+
+before_install:
+  - if [ -n "$ILLUMINATE_VERSION" ] ; then composer require illuminate/support:${ILLUMINATE_VERSION} illuminate/console:${ILLUMINATE_VERSION} --no-update; fi
+  - if [ -n "$PHPUNIT_VERSION" ] ; then composer require phpunit/phpunit:${PHPUNIT_VERSION} --no-update; fi
+  - mkdir -p build/logs
+
+install:
   - composer self-update
   - composer install
   - wget https://scrutinizer-ci.com/ocular.phar
 
 script:
- - mkdir -p build/logs
- - vendor/bin/phpunit --coverage-clover build/logs/clover.xml
+  - vendor/bin/phpunit --coverage-clover build/logs/clover.xml
 
 after_script:
- - sh -c "if [ $TRAVIS_PHP_VERSION = '7.2' ]; then php ocular.phar code-coverage:upload --format=php-clover build/logs/clover.xml; fi"
+  - sh -c "if [[ $TRAVIS_PHP_VERSION = '7.2' && $ILLUMINATE_VERSION = '5.6.*' ]]; then php ocular.phar code-coverage:upload --format=php-clover build/logs/clover.xml; fi"
