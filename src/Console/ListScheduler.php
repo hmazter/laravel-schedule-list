@@ -73,14 +73,6 @@ class ListScheduler extends Command
     }
 
     /**
-     * Backwards compatibility for laravel <5.5
-     */
-    public function fire()
-    {
-        $this->handle();
-    }
-
-    /**
      * @param array|ScheduleEvent[] $events
      */
     protected function outputCronStyle($events)
