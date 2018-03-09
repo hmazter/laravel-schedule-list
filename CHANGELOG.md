@@ -2,7 +2,7 @@
 All notable changes to this project will be documented in this file.
 This project tries to adhere to [Semantic Versioning](http://semver.org/).
 
-## [1.0.0] - 
+## [1.0.0] - 2018-03-09
 ### Breaking
 - Only support PHP 7.1.3 and above
 - Only support Laravel 5.5 and above
