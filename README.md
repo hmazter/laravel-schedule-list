@@ -73,6 +73,26 @@ For occasions when you need to access the list of scheduled events programmatica
 Inject the `ScheduleList` or resolve it from the Container and then call `all()` to get all scheduled events.
 Usage of it can be seen in [ListScheduler::handle](src/Console/ListScheduler.php)
 
+## Define PHP Binary Path
+
+If you use custom PHP Binary paths or you are using `\Hmazter\LaravelScheduleList\ScheduleList::all` within the context of a web application and not through the console, you can publish the package config file and defining your own binary path:
+
+```
+php artisan vendor:publish --provider="Hmazter\LaravelScheduleList\ScheduleListServiceProvider" --tag="config"
+```
+
+For example `config/schedule-list.php`:
+```
+<?php
+
+return [
+    'remove_strings_from_command' => [
+        "'".PHP_BINARY."'",
+        "'artisan'",
+    ],
+];
+```
+
 ## Known limitations
 
 Laravel ships with some special scheduling functions ex `between`, `unlessBetween`, `when` and  `skip`
