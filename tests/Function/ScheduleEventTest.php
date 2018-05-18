@@ -75,4 +75,24 @@ class ScheduleEventTest extends TestCase
         self::assertEquals('* * * * *', $scheduleEvent->getExpression());
         self::assertInstanceOf(Carbon::class, $scheduleEvent->getNextRunDate());
     }
+
+    /** @test */
+    public function getShortCommand_removesStringsProvidedThroughConfig()
+    {
+        config(['schedule-list.remove_strings_from_command' => [
+            "'/usr/bin/php'",
+            "'art'",
+        ]]);
+
+        $command = "'/usr/bin/php' 'art' test:hello --name=\"John Doe\" > /dev/null";
+
+        $scheduleEvent = new ScheduleEvent(
+            '',
+            null,
+            $command,
+            ''
+        );
+
+        self::assertEquals('test:hello --name="John Doe"', $scheduleEvent->getShortCommand());
+    }
 }

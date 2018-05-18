@@ -97,7 +97,13 @@ class ScheduleEvent
     {
         $command = $this->getFullCommand();
         $command = substr($command, 0, strpos($command, '>'));
-        $command = trim(str_replace(["'".PHP_BINARY."'", "'artisan'"], '', $command));
+        $command = trim(str_replace(
+            config('schedule-list.remove_strings_from_command', [
+                "'".PHP_BINARY."'",
+                "'artisan'",
+            ]), '', $command)
+        );
+
         return $command;
     }
 
