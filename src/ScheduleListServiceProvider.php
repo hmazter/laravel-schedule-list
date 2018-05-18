@@ -22,6 +22,13 @@ class ScheduleListServiceProvider extends ServiceProvider
      */
     protected $defer = false;
 
+    public function boot()
+    {
+        $this->publishes([
+            __DIR__ . '/../config/schedule-list.php' => config_path('schedule-list.php'),
+        ], 'config');
+    }
+
     /**
      * Register the service provider.
      *
@@ -29,6 +36,8 @@ class ScheduleListServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->mergeConfigFrom(__DIR__.'/../config/schedule-list.php', 'schedule-list');
+
         $this->commands([
             Console\ListScheduler::class
         ]);
