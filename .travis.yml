@@ -27,15 +27,10 @@ before_install:
   - if [ -n "$ILLUMINATE_VERSION" ] ; then composer require illuminate/support:${ILLUMINATE_VERSION} illuminate/console:${ILLUMINATE_VERSION} --no-update; fi
   - if [ -n "$PHPUNIT_VERSION" ] ; then composer require --dev phpunit/phpunit:${PHPUNIT_VERSION} --no-update; fi
   - if [ -n "$ORCHESTRA_TESTBENCH_VERSION" ] ; then composer require --dev orchestra/testbench:${ORCHESTRA_TESTBENCH_VERSION} --no-update; fi
-  - mkdir -p build/logs
 
 install:
   - composer self-update
   - composer install
-  - wget https://scrutinizer-ci.com/ocular.phar
 
 script:
-  - vendor/bin/phpunit --coverage-clover build/logs/clover.xml
-
-after_script:
-  - sh -c "if [[ $TRAVIS_PHP_VERSION = '7.2' && $ILLUMINATE_VERSION = '5.7.*' ]]; then php ocular.phar code-coverage:upload --format=php-clover build/logs/clover.xml; fi"
+  - vendor/bin/phpunit --coverage-text

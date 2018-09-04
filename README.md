@@ -2,8 +2,6 @@ Laravel 5 Schedule List
 =====================
 
 [![Build Status](https://travis-ci.org/hmazter/laravel-schedule-list.svg?branch=master)](https://travis-ci.org/hmazter/laravel-schedule-list)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/hmazter/laravel-schedule-list/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/hmazter/laravel-schedule-list/?branch=master)
-[![Code Coverage](https://scrutinizer-ci.com/g/hmazter/laravel-schedule-list/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/hmazter/laravel-schedule-list/?branch=master)
 
 [![Latest Stable Version](https://poser.pugx.org/hmazter/laravel-schedule-list/v/stable)](https://packagist.org/packages/hmazter/laravel-schedule-list)
 [![Latest Unstable Version](https://poser.pugx.org/hmazter/laravel-schedule-list/v/unstable)](https://packagist.org/packages/hmazter/laravel-schedule-list)
