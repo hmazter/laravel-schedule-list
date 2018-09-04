@@ -46,7 +46,6 @@ class ScheduleEventTest extends TestCase
      */
     public function getNextRunDate_withTimezone_returnsRunDateAdjustedForTheTimezone()
     {
-
         $scheduleEvent = new ScheduleEvent(
             '0 8 * * *',
             'Etc/GMT+2',
