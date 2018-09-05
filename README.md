@@ -2,6 +2,7 @@ Laravel 5 Schedule List
 =====================
 
 [![Build Status](https://travis-ci.org/hmazter/laravel-schedule-list.svg?branch=master)](https://travis-ci.org/hmazter/laravel-schedule-list)
+[![StyleCI](https://github.styleci.io/repos/40648674/shield?branch=master)](https://github.styleci.io/repos/40648674)
 
 [![Latest Stable Version](https://poser.pugx.org/hmazter/laravel-schedule-list/v/stable)](https://packagist.org/packages/hmazter/laravel-schedule-list)
 [![Latest Unstable Version](https://poser.pugx.org/hmazter/laravel-schedule-list/v/unstable)](https://packagist.org/packages/hmazter/laravel-schedule-list)
