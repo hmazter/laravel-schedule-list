@@ -112,7 +112,11 @@ class ScheduleEvent
      */
     public function getCommandName(): string
     {
-        list($commandName) = Parser::parse($this->getShortCommand());
+        $shortCommand = $this->getShortCommand();
+        if (empty($shortCommand)) {
+            return '';
+        }
+        list($commandName) = Parser::parse($shortCommand);
         return $commandName;
     }
 

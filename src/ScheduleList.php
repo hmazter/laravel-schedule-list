@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Hmazter\LaravelScheduleList;
 
+use Illuminate\Console\Scheduling\CallbackEvent;
 use Illuminate\Console\Scheduling\Event;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Contracts\Console\Kernel as ConsoleKernel;
@@ -40,6 +41,10 @@ class ScheduleList
         foreach ($this->schedule->events() as $event) {
             $fullCommand = $event->buildCommand();
 
+            if ($event instanceof CallbackEvent) {
+                $fullCommand = 'Closure' . $fullCommand;
+            }
+
             $scheduleEvent = new ScheduleEvent(
                 $event->getExpression(),
                 $event->timezone,
@@ -47,7 +52,7 @@ class ScheduleList
                 $event->description ?? ''
             );
 
-            if (empty($scheduleEvent->getDescription())) {
+            if (empty($scheduleEvent->getDescription()) && $scheduleEvent->getCommandName()) {
                 $scheduleEvent->setDescription($this->getDescriptionFromCommand($scheduleEvent->getCommandName()));
             }
 
