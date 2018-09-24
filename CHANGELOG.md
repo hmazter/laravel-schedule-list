@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+### Added
+- Column showing status for "without overlapping"-locks
+
+### Changed
+- \Hmazter\LaravelScheduleList\ScheduleList::all now returns a Collection instead of array
+
 ## [1.1.1] - 2018-09-23
 ### Fixed
 - Fixed crash when scheduling Closures and Jobs, #23 

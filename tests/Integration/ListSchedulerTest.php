@@ -17,7 +17,8 @@ class ListSchedulerTest extends TestCase
     public function testListSchedulerCommand_withTasksAndTableStyle()
     {
         \Illuminate\Support\Facades\Artisan::call('schedule:list');
-        $consoleOutput = explode("\n", trim(\Illuminate\Support\Facades\Artisan::output()));
+        $consoleOutput = trim(\Illuminate\Support\Facades\Artisan::output());
+        $consoleOutput = explode("\n", $consoleOutput);
         $cron = \Cron\CronExpression::factory('0 10 * * *');
 
         self::assertContains('test:command:name', $consoleOutput[3]);
@@ -38,12 +39,18 @@ class ListSchedulerTest extends TestCase
         self::assertContains('0 14 * * *', $consoleOutput[7]);
         self::assertContains('Closure', $consoleOutput[7]);
         self::assertContains('TestJob', $consoleOutput[7]);
+
+        self::assertContains('Not locked', $consoleOutput[8]);
+
+        self::assertContains('Locked', $consoleOutput[9]);
+        self::assertNotContains('Not locked', $consoleOutput[9]);
     }
 
     public function testListSchedulerCommand_withTasksAndCronStyle()
     {
         \Illuminate\Support\Facades\Artisan::call('schedule:list', ['--cron' => true]);
-        $consoleOutput = explode("\n", trim(\Illuminate\Support\Facades\Artisan::output()));
+        $consoleOutput = trim(\Illuminate\Support\Facades\Artisan::output());
+        $consoleOutput = explode("\n", $consoleOutput);
 
         self::assertContains('test:command:name', $consoleOutput[0]);
         self::assertContains('artisan', $consoleOutput[0]);

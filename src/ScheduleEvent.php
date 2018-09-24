@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace Hmazter\LaravelScheduleList;
 
-use Illuminate\Console\Parser;
 use Cron\CronExpression;
+use Illuminate\Console\Parser;
 use Illuminate\Support\Carbon;
 
 class ScheduleEvent
@@ -30,21 +30,29 @@ class ScheduleEvent
     private $description;
 
     /**
+     * @var bool|null
+     */
+    private $mutexStatus;
+
+    /**
      * @param string $expression
      * @param \DateTimeZone|null|string $timezone
      * @param string $fullCommand
      * @param string $description
+     * @param bool|null $mutexStatus
      */
     public function __construct(
         string $expression,
         $timezone,
         string $fullCommand,
-        string $description
+        string $description,
+        bool $mutexStatus = null
     ) {
         $this->expression = $this->truncateCronExpression($expression);
         $this->timezone = $timezone;
         $this->fullCommand = $fullCommand;
         $this->description = $description;
+        $this->mutexStatus = $mutexStatus;
     }
 
     /**
@@ -95,14 +103,13 @@ class ScheduleEvent
      */
     public function getShortCommand(): string
     {
+        $removeStrings = config('schedule-list.remove_strings_from_command', [
+            "'" . PHP_BINARY . "'",
+            "'artisan'",
+        ]);
         $command = $this->getFullCommand();
         $command = substr($command, 0, strpos($command, '>'));
-        $command = trim(str_replace(
-            config('schedule-list.remove_strings_from_command', [
-                "'".PHP_BINARY."'",
-                "'artisan'",
-            ]), '', $command)
-        );
+        $command = trim(str_replace($removeStrings, '', $command));
 
         return $command;
     }
@@ -126,6 +133,30 @@ class ScheduleEvent
     public function getDescription(): string
     {
         return $this->description;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getMutexStatus(): ?bool
+    {
+        return $this->mutexStatus;
+    }
+
+    /**
+     * @return string
+     */
+    public function getOverlappingLockDescription(): string
+    {
+        if ($this->mutexStatus === true) {
+            return 'Locked';
+        }
+
+        if ($this->mutexStatus === false) {
+            return 'Not locked';
+        }
+
+        return 'N/A';
     }
 
     /**

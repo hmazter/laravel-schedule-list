@@ -17,5 +17,8 @@ class MockConsoleKernel extends \Orchestra\Testbench\Console\Kernel
         $schedule->exec('ls -lah')->mondays()->at('3:00');
         $schedule->call($closure)->dailyAt('13:00')->description('A description for a scheduled callback');
         $schedule->job(new \TestJob())->dailyAt('14:00');
+        $schedule->exec('ls')->daily()->withoutOverlapping();
+        $event = $schedule->exec('cd')->daily()->withoutOverlapping();
+        $event->mutex->create($event);
     }
 }

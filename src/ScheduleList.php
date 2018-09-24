@@ -7,6 +7,7 @@ use Illuminate\Console\Scheduling\CallbackEvent;
 use Illuminate\Console\Scheduling\Event;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Contracts\Console\Kernel as ConsoleKernel;
+use Illuminate\Support\Collection;
 
 class ScheduleList
 {
@@ -31,25 +32,31 @@ class ScheduleList
     }
 
     /**
-     * @return array|ScheduleEvent[]
+     * @return Collection|ScheduleEvent[]
      */
-    public function all(): array
+    public function all(): Collection
     {
-        $events = [];
+        $events = collect();
 
         /** @var Event $event */
         foreach ($this->schedule->events() as $event) {
             $fullCommand = $event->buildCommand();
+            $mutexStatus = null;
 
             if ($event instanceof CallbackEvent) {
                 $fullCommand = 'Closure' . $fullCommand;
+            }
+
+            if ($event->withoutOverlapping) {
+                $mutexStatus = $event->mutex->exists($event);
             }
 
             $scheduleEvent = new ScheduleEvent(
                 $event->getExpression(),
                 $event->timezone,
                 $fullCommand,
-                $event->description ?? ''
+                $event->description ?? '',
+                $mutexStatus
             );
 
             if (empty($scheduleEvent->getDescription()) && $scheduleEvent->getCommandName()) {
