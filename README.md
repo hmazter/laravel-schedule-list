@@ -9,7 +9,7 @@ Laravel 5 Schedule List
 [![Total Downloads](https://poser.pugx.org/hmazter/laravel-schedule-list/downloads)](https://packagist.org/packages/hmazter/laravel-schedule-list)
 [![License](https://poser.pugx.org/hmazter/laravel-schedule-list/license)](https://packagist.org/packages/hmazter/laravel-schedule-list)
 
-Laravel 5.5+ package to add a artisan command to list all scheduled artisan commands. 
+Laravel 5.6+ package to add a artisan command to list all scheduled artisan commands. 
 With schedule time (cron expression), the command to execute and the command description.
 
 
@@ -21,7 +21,7 @@ Require this package with composer using the following command:
 composer require hmazter/laravel-schedule-list
 ```
 
-**Note!** For Laravel version below 5.5 use [0.2.0](https://github.com/hmazter/laravel-schedule-list/tree/v0.2.0#Install) tag.
+**Note!** For Laravel version 5.5 and below use [0.2.0](https://github.com/hmazter/laravel-schedule-list/tree/v0.2.0#Install) tag.
 
 ## Usage
 
