@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.0] - 2019-02-09
+### Other
+- Remove support Laravel 5.5 (it did not actually work)
+
 ## [1.1.1] - 2018-09-23
 ### Fixed
 - Fixed crash when scheduling Closures and Jobs, #23 
