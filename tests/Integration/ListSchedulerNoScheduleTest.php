@@ -7,6 +7,6 @@ class ListSchedulerNoScheduleTest extends TestCase
         \Illuminate\Support\Facades\Artisan::call('schedule:list');
         $consoleOutput = trim(\Illuminate\Support\Facades\Artisan::output());
 
-        self::assertContains('No tasks scheduled', $consoleOutput);
+        self::assertEquals('No tasks scheduled', trim($consoleOutput));
     }
 }

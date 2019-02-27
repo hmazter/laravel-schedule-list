@@ -56,7 +56,7 @@ class ScheduleEventTest extends TestCase
         // 8 am GMT+2 should be 6 am from a UTC perspective
         // Meaning the server (hypothetically running UTC) should trigger the job at 6 am
         // that happens at 8 am GMT+2 then.
-        self::assertContains('06:00:00', $scheduleEvent->getNextRunDate()->format('Y-m-d H:i:s'));
+        self::assertEquals('06:00:00', $scheduleEvent->getNextRunDate()->format('H:i:s'));
     }
 
     /**
