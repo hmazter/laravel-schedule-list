@@ -1,14 +1,14 @@
 language: php
 
 php:
-  - 7.1
   - 7.2
   - 7.3
 
 env:
-  - ILLUMINATE_VERSION=5.6.* PHPUNIT_VERSION=7.* ORCHESTRA_TESTBENCH_VERSION=3.6
-  - ILLUMINATE_VERSION=5.7.* PHPUNIT_VERSION=7.* ORCHESTRA_TESTBENCH_VERSION=3.7
-  - ILLUMINATE_VERSION=5.8.* PHPUNIT_VERSION=7.* ORCHESTRA_TESTBENCH_VERSION=3.8
+  - ILLUMINATE_VERSION=5.6.* ORCHESTRA_TESTBENCH_VERSION=3.6
+  - ILLUMINATE_VERSION=5.7.* ORCHESTRA_TESTBENCH_VERSION=3.7
+  - ILLUMINATE_VERSION=5.8.* ORCHESTRA_TESTBENCH_VERSION=3.8
+  - ILLUMINATE_VERSION=6.0.* ORCHESTRA_TESTBENCH_VERSION=4.0
 
 cache:
   directories:
@@ -16,7 +16,6 @@ cache:
 
 before_install:
   - if [ -n "$ILLUMINATE_VERSION" ] ; then composer require illuminate/support:${ILLUMINATE_VERSION} illuminate/console:${ILLUMINATE_VERSION} --no-update; fi
-  - if [ -n "$PHPUNIT_VERSION" ] ; then composer require --dev phpunit/phpunit:${PHPUNIT_VERSION} --no-update; fi
   - if [ -n "$ORCHESTRA_TESTBENCH_VERSION" ] ; then composer require --dev orchestra/testbench:${ORCHESTRA_TESTBENCH_VERSION} --no-update; fi
 
 install:
