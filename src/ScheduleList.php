@@ -11,22 +11,15 @@ use Illuminate\Contracts\Console\Kernel as ConsoleKernel;
 class ScheduleList
 {
     /**
-     * @var Schedule
-     */
-    private $schedule;
-
-    /**
      * @var ConsoleKernel
      */
     private $consoleKernel;
 
     /**
-     * @param Schedule $schedule
      * @param ConsoleKernel $consoleKernel
      */
-    public function __construct(Schedule $schedule, ConsoleKernel $consoleKernel)
+    public function __construct(ConsoleKernel $consoleKernel)
     {
-        $this->schedule = $schedule;
         $this->consoleKernel = $consoleKernel;
     }
 
@@ -38,7 +31,7 @@ class ScheduleList
         $events = [];
 
         /** @var Event $event */
-        foreach ($this->schedule->events() as $event) {
+        foreach (app(Schedule::class)->events() as $event) {
             $fullCommand = $event->buildCommand();
 
             if ($event instanceof CallbackEvent) {
