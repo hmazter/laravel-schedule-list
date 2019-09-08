@@ -4,9 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [] - Unreleased
+## [2.0.0] - 2019-09-08
 ### Breaking
 - Drop support for PHP 7.1 (It is EOL)
+### Changed
+- Resolve Schedule instance from container instead of injecting, see #30
 ### Other
 - Support Laravel 6.0
 
