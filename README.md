@@ -1,4 +1,4 @@
-Laravel 5 Schedule List
+Laravel Schedule List
 =====================
 
 [![Build Status](https://travis-ci.org/hmazter/laravel-schedule-list.svg?branch=master)](https://travis-ci.org/hmazter/laravel-schedule-list)
