@@ -1,7 +1,7 @@
 Laravel Schedule List
 =====================
 
-[![Build Status](https://travis-ci.org/hmazter/laravel-schedule-list.svg?branch=master)](https://travis-ci.org/hmazter/laravel-schedule-list)
+[![Build Status](https://github.com/hmazter/laravel-schedule-list/workflows/run-tests/badge.svg?branch=master)](https://github.com/hmazter/laravel-schedule-list/actions)
 [![StyleCI](https://github.styleci.io/repos/40648674/shield?branch=master)](https://github.styleci.io/repos/40648674)
 
 [![Latest Stable Version](https://poser.pugx.org/hmazter/laravel-schedule-list/v/stable)](https://packagist.org/packages/hmazter/laravel-schedule-list)
