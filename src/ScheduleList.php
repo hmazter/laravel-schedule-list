@@ -24,14 +24,19 @@ class ScheduleList
     }
 
     /**
+     * @param \Illuminate\Contracts\Foundation\Application $app
      * @return array|ScheduleEvent[]
      */
-    public function all(): array
+    public function all($app): array
     {
         $events = [];
 
         /** @var Event $event */
         foreach (app(Schedule::class)->events() as $event) {
+            if (! $event->filtersPass($app)) {
+                continue;
+            }
+            
             $fullCommand = $event->buildCommand();
 
             if ($event instanceof CallbackEvent) {

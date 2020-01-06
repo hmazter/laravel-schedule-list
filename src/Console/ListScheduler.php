@@ -57,7 +57,7 @@ class ListScheduler extends Command
      */
     public function handle()
     {
-        $events = $this->scheduleList->all();
+        $events = $this->scheduleList->all($this->laravel);
 
         if (count($events) === 0) {
             $this->info('No tasks scheduled');
