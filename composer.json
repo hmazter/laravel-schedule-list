@@ -35,5 +35,7 @@
         "Hmazter\\LaravelScheduleList\\ScheduleListServiceProvider"
       ]
     }
-  }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
 }
