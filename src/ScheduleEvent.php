@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace Hmazter\LaravelScheduleList;
 
-use Illuminate\Console\Parser;
 use Cron\CronExpression;
+use Illuminate\Console\Parser;
 use Illuminate\Support\Carbon;
 
 class ScheduleEvent
@@ -97,11 +97,15 @@ class ScheduleEvent
     {
         $command = $this->getFullCommand();
         $command = substr($command, 0, strpos($command, '>'));
-        $command = trim(str_replace(
-            config('schedule-list.remove_strings_from_command', [
-                "'".PHP_BINARY."'",
-                "'artisan'",
-            ]), '', $command)
+        $command = trim(
+            str_replace(
+                config('schedule-list.remove_strings_from_command', [
+                    "'" . PHP_BINARY . "'",
+                    "'artisan'",
+                ]),
+                '',
+                $command
+            )
         );
 
         return $command;
