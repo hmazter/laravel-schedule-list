@@ -9,7 +9,7 @@ jobs:
     strategy:
       #fail-fast: true
       matrix:
-        php: [7.2, 7.3, 7.4]
+        php: [7.2, 7.3, 7.4, 8.0]
         laravel: [5.6.*, 5.7.*, 5.8.*, 6.*, 7.*, 8.*]
         include:
           - laravel: 5.6.*
@@ -24,16 +24,31 @@ jobs:
           - laravel: 6.*
             testbench: 4.*
             phpunit: 8.*
+          - laravel: 6.*
+            php: 8.0
+            testbench: 4.*
+            phpunit: 9.*
           - laravel: 7.*
             testbench: 5.*
             phpunit: 8.*
+          - laravel: 7.*
+            php: 8.0
+            testbench: 5.*
+            phpunit: 9.*
           - laravel: 8.*
             testbench: 6.*
-            phpunit: 8.*
+            phpunit: 9.*
         exclude:
           # Laravel 8.* does not support PHP 7.2
           - laravel: 8.*
             php: 7.2
+          # Laravel < 6 does not support PHP 8
+          - laravel: 5.6.*
+            php: 8.0
+          - laravel: 5.7.*
+            php: 8.0
+          - laravel: 5.8.*
+            php: 8.0
 
     name: PHP ${{ matrix.php }} - Laravel ${{ matrix.laravel }}
 
@@ -41,24 +56,29 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v1
 
-      - name: Cache dependencies
-        uses: actions/cache@v1
-        with:
-          path: ~/.composer/cache/files
-          key: dependencies-laravel-${{ matrix.laravel }}-php-${{ matrix.php }}-composer-${{ hashFiles('composer.json') }}
-
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
           extensions: libxml, mbstring, bcmath
           coverage: none
+          tools: composer:v2
+
+      - name: Get composer cache directory
+        id: composercache
+        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+      - name: Cache dependencies
+        uses: actions/cache@v1
+        with:
+          path: ${{ steps.composercache.outputs.dir }}
+          key: dependencies-laravel-${{ matrix.laravel }}-php-${{ matrix.php }}-composer-${{ hashFiles('composer.json') }}
 
       - name: Install dependencies
         run: |
           composer require "illuminate/support:${{ matrix.laravel }}" "illuminate/console:${{ matrix.laravel }}"  --no-interaction --no-update
           composer require --dev "orchestra/testbench:${{ matrix.testbench }}" "phpunit/phpunit:${{ matrix.phpunit }}" --no-interaction --no-update
-          composer install --prefer-dist --no-interaction --no-suggest
+          composer install --prefer-dist --no-interaction
 
       - name: Execute tests
         run: vendor/bin/phpunit
