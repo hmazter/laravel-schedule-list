@@ -74,7 +74,7 @@ jobs:
         run: |
           composer require "illuminate/support:${{ matrix.laravel }}" "illuminate/console:${{ matrix.laravel }}"  --no-interaction --no-update
           composer require --dev "orchestra/testbench:${{ matrix.testbench }}" "phpunit/phpunit:${{ matrix.phpunit }}" --no-interaction --no-update
-          composer install --prefer-dist --no-interaction --no-suggest
+          composer install --prefer-dist --no-interaction
 
       - name: Execute tests
         run: vendor/bin/phpunit
