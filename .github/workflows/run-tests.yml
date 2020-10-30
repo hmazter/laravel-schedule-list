@@ -30,6 +30,10 @@ jobs:
             phpunit: 9.*
           - laravel: 7.*
             testbench: 5.*
+            phpunit: 8.*
+          - laravel: 7.*
+            php: 8.0
+            testbench: 5.*
             phpunit: 9.*
           - laravel: 8.*
             testbench: 6.*
