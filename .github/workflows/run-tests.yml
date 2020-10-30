@@ -23,6 +23,10 @@ jobs:
             phpunit: 8.*
           - laravel: 6.*
             testbench: 4.*
+            phpunit: 8.*
+          - laravel: 6.*
+            php: 8.0
+            testbench: 4.*
             phpunit: 9.*
           - laravel: 7.*
             testbench: 5.*
