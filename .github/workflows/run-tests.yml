@@ -34,6 +34,13 @@ jobs:
           # Laravel 8.* does not support PHP 7.2
           - laravel: 8.*
             php: 7.2
+          # Laravel < 6 does not support PHP 8
+          - laravel: 5.6.*
+            php: 8.0
+          - laravel: 5.7.*
+            php: 8.0
+          - laravel: 5.8.*
+            php: 8.0
 
     name: PHP ${{ matrix.php }} - Laravel ${{ matrix.laravel }}
 
