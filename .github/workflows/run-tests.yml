@@ -64,6 +64,7 @@ jobs:
           php-version: ${{ matrix.php }}
           extensions: libxml, mbstring, bcmath
           coverage: none
+          tools: composer:v2
 
       - name: Install dependencies
         run: |
