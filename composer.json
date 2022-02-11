@@ -19,6 +19,10 @@
     "phpunit/phpunit": "^9.3",
     "orchestra/testbench": "6.*"
   },
+  "conflict": {
+    "illuminate/support": "^8.19",
+    "illuminate/console": "^8.19"
+  },
   "autoload": {
     "psr-4": {
       "Hmazter\\LaravelScheduleList\\": "src"

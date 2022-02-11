@@ -10,7 +10,7 @@ jobs:
       #fail-fast: true
       matrix:
         php: [7.2, 7.3, 7.4, 8.0]
-        laravel: [5.6.*, 5.7.*, 5.8.*, 6.*, 7.*, 8.*]
+        laravel: [5.6.*, 5.7.*, 5.8.*, 6.*, 7.*, 8.18.1]
         include:
           - laravel: 5.6.*
             testbench: 3.6
@@ -35,12 +35,12 @@ jobs:
             php: 8.0
             testbench: 5.*
             phpunit: 9.*
-          - laravel: 8.*
+          - laravel: 8.18.1
             testbench: 6.*
             phpunit: 9.*
         exclude:
           # Laravel 8.* does not support PHP 7.2
-          - laravel: 8.*
+          - laravel: 8.18.1
             php: 7.2
           # Laravel < 6 does not support PHP 8
           - laravel: 5.6.*
